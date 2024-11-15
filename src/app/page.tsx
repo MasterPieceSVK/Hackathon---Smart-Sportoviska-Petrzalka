@@ -6,9 +6,11 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Home</h1>
-      <button onClick={() => signIn("discord")}>Login</button>
-      <h1>{session.data?.user.name ?? ""}</h1>
+      <h1 className="motion-preset-fade duration-1000">Home</h1>
+      <button onClick={() => signIn("")}>Login</button>
+      <h1 className="motion-preset-fade duration-1000">
+        {session.data?.user.name ?? ""}
+      </h1>
     </div>
   );
 }

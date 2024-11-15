@@ -35,6 +35,7 @@
     "react-dom": "^18.3.1",
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
+    "tailwindcss-motion": "^0.4.1-beta",
     "zod": "^3.23.3"
   },
   "devDependencies": {
