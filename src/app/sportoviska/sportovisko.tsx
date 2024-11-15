@@ -1,42 +1,27 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import type { api } from "@/trpc/server";
+import { Role } from "@prisma/client";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-type SportType = {
-  id: string;
-  name: string | null;
-  info: string | null;
-  pictures: { id: string; image: string }[];
-};
+import Link from "next/link";
 
-export default function SportoviskoComponent(props: SportType) {
+export default function SportoviskoComponent(
+  props: Awaited<ReturnType<typeof api.sportoviska.getAll>>[number],
+) {
   return (
-    <Card className="max-h-[15%] max-w-[15%] border-2">
-      <CardContent>
+    <Link href={`/sportoviska/${props.id}`}>
+      <div className="bg-dark-blue h-[400px] w-[300px] rounded-xl px-[3px] py-[3px] text-white">
         <Image
-          className="pt-10"
           src={props.pictures[0]?.image ?? ""}
-          width="200"
-          height="200"
-          alt="test"
+          alt={props.name ?? ""}
+          width={400}
+          height={200}
+          className="rounded-t-xl"
         />
-      </CardContent>
-      <CardHeader className="bg-secondary">
-        <CardTitle className="text-center"> {props.name} </CardTitle>
-        <CardDescription> {props.info} </CardDescription>
-      </CardHeader>
-    </Card>
+        <div className="p-4">
+          <p className="text-3xl">{props.name}</p>
+          <p className="text-sm">{props.info}</p>
+        </div>
+      </div>
+    </Link>
   );
 }
-
-//<AccordionItem value="item-1">
-//<AccordionTrigger> {props.name} </AccordionTrigger>
-//<AccordionContent>
-//{props.info}
-//<Button> Zarezervovat </Button>
-//</AccordionContent>
-//</AccordionItem>

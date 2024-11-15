@@ -28,7 +28,7 @@ export default async function RootLayout({
         <Providers>
           <TRPCReactProvider>
             <div className="h-lvh">
-              <nav className="flex h-[15%] items-center justify-between px-3 py-6">
+              <nav className="bg-dark-blue flex h-[15%] items-center justify-between px-3 py-6">
                 <Link href={"/"}>
                   <h1 className="text-lg text-white">Petrzalka</h1>
                 </Link>
@@ -37,9 +37,9 @@ export default async function RootLayout({
                     <DrawerTrigger>
                       <BurgerIcon size={20} className="text-white" />
                     </DrawerTrigger>
-                    <DrawerContent className="gap-2">
+                    <DrawerContent className="bg-dark-blue gap-2">
                       <DialogTitle></DialogTitle>
-                      <div className="flex flex-col">
+                      <div className="bg-dark-blue flex flex-col">
                         <NavLinks />
                       </div>
                     </DrawerContent>
