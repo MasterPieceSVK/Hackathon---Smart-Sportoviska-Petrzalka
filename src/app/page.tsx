@@ -7,10 +7,9 @@ export default function Home() {
   const session = useSession();
   const router = useRouter();
   return (
-    <div className="grid h-full grid-cols-[2fr,1fr] place-items-center bg-[url('/background.png')]">
-      <h1 className="ml-14 text-4xl font-semibold text-white">
-        Nudis sa doma? <br /> Pod sportovat - rezervuj <br /> ihrisko a zacni
-        hned!
+    <div className="flex h-full flex-col items-center justify-center gap-3 bg-[url('/background.png')] sm:grid sm:grid-cols-[2fr,1fr] sm:place-items-center">
+      <h1 className="text-wrap px-3 text-center text-4xl font-semibold text-white sm:ml-14">
+        Nudis sa doma? <br /> Pod sportovat - rezervuj ihrisko a zacni hned!
       </h1>
       <Button
         onClick={async () => {
