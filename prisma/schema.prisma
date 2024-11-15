@@ -72,3 +72,17 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Picture {
+    id String @id @default(cuid())
+    image String
+    sportoviskoId String
+    sportovisko Sportovisko @relation(fields: [sportoviskoId],references: [id], onDelete: Cascade)
+}
+
+model Sportovisko {
+    id String @id @default(cuid())
+    name String
+    info String
+    pictures Picture[]
+}
