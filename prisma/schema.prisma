@@ -14,17 +14,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
-}
 
 // Necessary for Next auth
 model Account {
@@ -54,6 +43,12 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Role {
+    SUPER_ADMIN
+    ADMIN
+    USER
+}
+
 model User {
     id            String    @id @default(cuid())
     name          String?
@@ -62,7 +57,11 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    reservations Reservation[]
+    sportovisko Sportovisko[]
+    role Role @default(USER)
+    events Event[] 
+    mobileNumber String?
 }
 
 model VerificationToken {
@@ -85,4 +84,32 @@ model Sportovisko {
     name String
     info String
     pictures Picture[]
+    reservations Reservation[]
+    ownerId String?
+    owner User? @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+}
+
+
+model Reservation {
+    id String @id @default(cuid())
+    userId String
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    timeFrom DateTime
+    timeTo DateTime
+    sportoviskoId String
+    sportovisko Sportovisko @relation(fields: [sportoviskoId],references: [id], onDelete: Cascade)
+    
+}
+
+model Event {
+    id String @id @default(cuid())
+    name String
+    description String
+    timeFrom DateTime
+    timeTo DateTime
+    attendees User[] 
+    image String?
+    maxAttendess Int
+    price Int?
+    prize String?
 }

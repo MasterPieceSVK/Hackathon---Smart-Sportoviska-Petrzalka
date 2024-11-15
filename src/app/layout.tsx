@@ -11,6 +11,7 @@ import DynamicUserButton from "./DynamicUserButton";
 import { BurgerIcon } from "@/components/ui/icons";
 import NavLinks from "./NavLinks";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -26,24 +27,28 @@ export default async function RootLayout({
       <body>
         <Providers>
           <TRPCReactProvider>
-            <nav className="flex items-center justify-between bg-secondary px-3 py-6">
-              <h1 className="text-lg">Petrzalka</h1>
-              <div className="sm:hidden">
-                <Drawer>
-                  <DrawerTrigger>
-                    <BurgerIcon size={20} />
-                  </DrawerTrigger>
-                  <DrawerContent className="gap-2">
-                    <DialogTitle></DialogTitle>
-                    <div className="flex flex-col">
-                      <NavLinks />
-                    </div>
-                  </DrawerContent>
-                </Drawer>
-              </div>
-              <DynamicUserButton />
-            </nav>
-            {children}
+            <div className="h-lvh">
+              <nav className="flex h-[15%] items-center justify-between px-3 py-6">
+                <Link href={"/"}>
+                  <h1 className="text-lg text-white">Petrzalka</h1>
+                </Link>
+                <div className="sm:hidden">
+                  <Drawer>
+                    <DrawerTrigger>
+                      <BurgerIcon size={20} className="text-white" />
+                    </DrawerTrigger>
+                    <DrawerContent className="gap-2">
+                      <DialogTitle></DialogTitle>
+                      <div className="flex flex-col">
+                        <NavLinks />
+                      </div>
+                    </DrawerContent>
+                  </Drawer>
+                </div>
+                <DynamicUserButton />
+              </nav>
+              <main className="h-[85%]">{children}</main>
+            </div>
           </TRPCReactProvider>
         </Providers>
       </body>
