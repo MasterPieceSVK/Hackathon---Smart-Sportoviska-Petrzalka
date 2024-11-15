@@ -1,14 +1,6 @@
 import "@/styles/globals.css";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
+
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
@@ -16,6 +8,9 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "@/trpc/react";
 import Providers from "@/lib/Providers";
 import DynamicUserButton from "./DynamicUserButton";
+import { BurgerIcon } from "@/components/ui/icons";
+import NavLinks from "./NavLinks";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -31,22 +26,22 @@ export default async function RootLayout({
       <body>
         <Providers>
           <TRPCReactProvider>
-            <nav className="bg-secondary">
-              <NavigationMenu>
-                <h1>Petrzalka</h1>
-                {/* <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <NavigationMenuLink className="p-5">
-                        Sportoviska
-                      </NavigationMenuLink>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList> */}
-
-                <DynamicUserButton />
-              </NavigationMenu>
+            <nav className="flex items-center justify-between bg-secondary px-3 py-6">
+              <h1 className="text-lg">Petrzalka</h1>
+              <div className="sm:hidden">
+                <Drawer>
+                  <DrawerTrigger>
+                    <BurgerIcon size={20} />
+                  </DrawerTrigger>
+                  <DrawerContent className="gap-2">
+                    <DialogTitle></DialogTitle>
+                    <div className="flex flex-col">
+                      <NavLinks />
+                    </div>
+                  </DrawerContent>
+                </Drawer>
+              </div>
+              <DynamicUserButton />
             </nav>
             {children}
           </TRPCReactProvider>
