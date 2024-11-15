@@ -1,10 +1,21 @@
 import "@/styles/globals.css";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import Providers from "@/lib/Providers";
+import DynamicUserButton from "./DynamicUserButton";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -12,14 +23,33 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <Providers>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            <nav className="bg-secondary">
+              <NavigationMenu>
+                <h1>Petrzalka</h1>
+                {/* <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <NavigationMenuLink className="p-5">
+                        Sportoviska
+                      </NavigationMenuLink>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList> */}
+
+                <DynamicUserButton />
+              </NavigationMenu>
+            </nav>
+            {children}
+          </TRPCReactProvider>
         </Providers>
       </body>
     </html>
