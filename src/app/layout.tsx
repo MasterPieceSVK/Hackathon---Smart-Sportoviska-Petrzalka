@@ -1,10 +1,16 @@
 import "@/styles/globals.css";
 
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import Providers from "@/lib/Providers";
+import DynamicUserButton from "./DynamicUserButton";
+import { BurgerIcon } from "@/components/ui/icons";
+import NavLinks from "./NavLinks";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -12,14 +18,33 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <Providers>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            <nav className="flex items-center justify-between bg-secondary px-3 py-6">
+              <h1 className="text-lg">Petrzalka</h1>
+              <div className="sm:hidden">
+                <Drawer>
+                  <DrawerTrigger>
+                    <BurgerIcon size={20} />
+                  </DrawerTrigger>
+                  <DrawerContent className="gap-2">
+                    <DialogTitle></DialogTitle>
+                    <div className="flex flex-col">
+                      <NavLinks />
+                    </div>
+                  </DrawerContent>
+                </Drawer>
+              </div>
+              <DynamicUserButton />
+            </nav>
+            {children}
+          </TRPCReactProvider>
         </Providers>
       </body>
     </html>
