@@ -16,7 +16,7 @@ export default function NavLinks() {
         <Link href={"/onas"}>O nas</Link>
       </Button>
       <Button
-        className="bg-pink border-2 border-primary text-lg text-primary hover:text-secondary sm:hidden"
+        className="border-2 border-primary bg-pink text-lg text-primary hover:text-secondary sm:hidden"
         onClick={() => signOut()}
       >
         Odhlasit sa

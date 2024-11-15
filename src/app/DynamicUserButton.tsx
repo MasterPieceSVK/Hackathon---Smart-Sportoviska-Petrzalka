@@ -17,7 +17,7 @@ export default function DynamicUserButton() {
         {session?.data?.user.id ? (
           <div className="flex items-center gap-4">
             <Button
-              className="bg-pink hidden border-white text-primary text-white hover:text-secondary sm:flex"
+              className="hidden border-white bg-pink text-primary text-white hover:text-secondary sm:flex"
               onClick={() => signOut()}
             >
               Odhlasit sa
@@ -35,7 +35,7 @@ export default function DynamicUserButton() {
         ) : (
           <Button
             onClick={() => signIn()}
-            className="bg-pink hidden border-white text-primary text-white hover:text-secondary sm:flex"
+            className="hidden border-white bg-pink text-primary text-white hover:text-secondary sm:flex"
           >
             Prihlasit sa
           </Button>
