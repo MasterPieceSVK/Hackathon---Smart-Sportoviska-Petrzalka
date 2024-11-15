@@ -72,6 +72,8 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
+
+
 model Picture {
     id String @id @default(cuid())
     image String
