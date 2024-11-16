@@ -7,14 +7,14 @@ export default async function Page({
   params,
   searchParams,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
   searchParams?: { date: string | undefined };
 }) {
   const session = await auth();
+  const { id } = await params;
   if (!session) {
-    await signIn("", { redirectTo: `/rezervacia/${params.id}` });
+    await signIn("", { redirectTo: `/rezervacia/${id}` });
   }
-  const { id } = params;
   const sportovisko = await api.sportoviska.getAll({ id: id, q: "" });
   const date = new Date(searchParams?.date ?? new Date().toISOString());
   const timeSlots = await api.reservations.getAll({
