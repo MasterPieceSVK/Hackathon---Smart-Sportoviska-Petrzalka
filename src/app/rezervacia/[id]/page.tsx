@@ -2,9 +2,8 @@ import CalendarComponent from "./CalendarComponents";
 import { api } from "@/trpc/server";
 import TimeSlots from "./TimeSlots";
 import { auth, signIn } from "@/server/auth";
-import { ReadonlyURLSearchParams } from "next/navigation";
+import type { ReadonlyURLSearchParams } from "next/navigation";
 
-// @ts-ignore
 export default async function Page({
   params,
   searchParams,
@@ -14,7 +13,7 @@ export default async function Page({
 }) {
   const session = await auth();
   const { id } = await params;
-  const searchParamsB = searchParams;
+  const searchParamsB = searchParams?.get("date");
   if (!session || !searchParamsB) {
     await signIn("", { redirectTo: `/rezervacia/${id}` });
   }
