@@ -3,13 +3,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { api } from "@/trpc/server";
+import { handleNewReservation } from "./actions";
+import { useToast } from "@/hooks/use-toast";
+import { redirect } from "next/navigation";
 
 export default function TimeSlots({
   timeSlots,
-  day,
+  sportoviskoId,
 }: {
   timeSlots: Awaited<ReturnType<typeof api.reservations.getAll>>;
-  day: Date;
+  sportoviskoId: string | undefined;
 }) {
   const [selectedTimes, setSelectedTimes] = useState<Date[]>([]);
   const [startTime, setStartTime] = useState<Date | null>(null);
@@ -78,6 +81,23 @@ export default function TimeSlots({
     return time >= startTime && time <= maxEndTime;
   }
 
+  const { toast } = useToast();
+
+  async function handleReservation() {
+    const result = await handleNewReservation(selectedTimes, sportoviskoId);
+    if (result.success) {
+      toast({
+        title: result.message,
+      });
+      redirect("/");
+    } else {
+      toast({
+        title: result.message,
+        variant: "destructive",
+      });
+    }
+  }
+
   return (
     <div>
       <div className="mt-2 grid grid-cols-4 gap-3 rounded-xl bg-dark-blue p-4 text-white sm:grid-cols-8">
@@ -123,7 +143,12 @@ export default function TimeSlots({
         </p>
         <div className="flex flex-col items-center gap-3 sm:flex-row">
           <p>{selectedTimes.length * 5}€</p>
-          <Button className="bg-pink" disabled={selectedTimes.length < 2}>
+          <Button
+            type="submit"
+            className="bg-pink"
+            disabled={selectedTimes.length < 2}
+            onClick={handleReservation}
+          >
             Rezervovat
           </Button>
         </div>

@@ -12,7 +12,6 @@ export default async function Page({
   const { id } = params;
   const sportovisko = await api.sportoviska.getAll({ id: id, q: "" });
   const date = new Date(searchParams?.date ?? new Date().toISOString());
-  console.log("Date", date);
   const timeSlots = await api.reservations.getAll({
     sportoviskoId: id,
     date,
@@ -28,7 +27,7 @@ export default async function Page({
       )}
       <div className="flex flex-col items-center justify-center gap-6 rounded-xl bg-dark-blue/10 p-4 sm:mt-0 sm:flex-row">
         <CalendarComponent id={id} />
-        <TimeSlots timeSlots={timeSlots} day={date} />
+        <TimeSlots timeSlots={timeSlots} sportoviskoId={sportovisko[0]?.id} />
       </div>
     </div>
   );

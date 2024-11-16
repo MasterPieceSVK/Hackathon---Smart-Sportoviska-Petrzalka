@@ -12,6 +12,11 @@ type TimeSlot = {
   available: boolean;
 };
 
+const CreateReservationInput = z.object({
+  sportoviskoId: z.string(),
+  timeInterval: z.array(z.date()).min(2),
+});
+
 export const reservationsRouter = createTRPCRouter({
   getAll: protectedProcedure
     .input(GetReservationsInput)
@@ -87,5 +92,34 @@ export const reservationsRouter = createTRPCRouter({
       }
 
       return timeSlots;
+    }),
+  create: protectedProcedure
+    .input(CreateReservationInput)
+    .mutation(async ({ ctx, input }) => {
+      if (input.timeInterval.length < 2) {
+        throw new Error("Time interval must have at least two dates");
+      }
+
+      const timeFrom = input.timeInterval[0];
+      const timeTo = input.timeInterval[input.timeInterval.length - 1];
+
+      if (!(timeFrom instanceof Date) || isNaN(timeFrom.getTime())) {
+        throw new Error("Invalid timeFrom date");
+      }
+
+      if (!(timeTo instanceof Date) || isNaN(timeTo.getTime())) {
+        throw new Error("Invalid timeTo date");
+      }
+
+      const reservation = await ctx.db.reservation.create({
+        data: {
+          sportoviskoId: input.sportoviskoId,
+          timeFrom,
+          timeTo,
+          userId: ctx.session.user.id,
+        },
+      });
+
+      return reservation;
     }),
 });
