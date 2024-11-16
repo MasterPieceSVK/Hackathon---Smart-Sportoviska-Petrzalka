@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-
+import { Toaster } from "@/components/ui/toaster";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
@@ -53,6 +53,7 @@ export default async function RootLayout({
             <Feedback />
           </TRPCReactProvider>
         </Providers>
+        <Toaster />
       </body>
     </html>
   );

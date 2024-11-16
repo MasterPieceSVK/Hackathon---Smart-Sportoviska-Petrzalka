@@ -16,16 +16,18 @@ const SportoviskoOutput = z.object({
 
 const SportoviskaInputSchema = z.object({
   q: z.string(),
+  id: z.string().optional(),
 });
 
 export const sportoviskaRouter = createTRPCRouter({
   getAll: publicProcedure
     .output(z.array(SportoviskoOutput))
     .input(SportoviskaInputSchema)
-    .query(async ({ ctx: { db }, input: { q } }) => {
+    .query(async ({ ctx: { db }, input: { q, id } }) => {
       return await db.sportovisko.findMany({
         where: {
           name: q ? { contains: q, mode: "insensitive" } : undefined,
+          id: id ? { equals: id } : undefined,
         },
         select: {
           id: true,

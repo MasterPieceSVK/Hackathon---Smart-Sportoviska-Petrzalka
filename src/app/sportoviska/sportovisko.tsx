@@ -8,7 +8,7 @@ export default function SportoviskoComponent(
   props: Awaited<ReturnType<typeof api.sportoviska.getAll>>[number],
 ) {
   return (
-    <Link href={`/sportoviska/${props.id}`}>
+    <Link href={`/rezervacia/${props.id}`}>
       <div className="bg-dark-blue h-[400px] w-[300px] rounded-xl px-[3px] py-[3px] text-white">
         <Image
           src={props.pictures[0]?.image ?? ""}
