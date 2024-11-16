@@ -7,6 +7,12 @@ export default function NavLinks() {
   return (
     <>
       <Button variant={"link"} className="text-lg text-white" asChild>
+        <Link href={"/admin"}>Admin</Link>
+      </Button>
+      <Button variant={"link"} className="text-lg text-white" asChild>
+        <Link href={"/eventy"}>Evenety</Link>
+      </Button>
+      <Button variant={"link"} className="text-lg text-white" asChild>
         <Link href={"/kontakt"}>Kontakt</Link>
       </Button>
       <Button variant={"link"} className="text-lg text-white" asChild>
