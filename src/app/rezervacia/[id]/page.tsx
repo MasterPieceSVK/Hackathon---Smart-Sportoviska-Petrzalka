@@ -7,28 +7,26 @@ export default async function Page({
   searchParams,
 }: {
   params: { id: string };
-
   searchParams?: { date: string | undefined };
 }) {
-  // async function getReservations(){
-
-  // }
-  const sportovisko = await api.sportoviska.getAll({ id: params.id, q: "" });
   const { id } = params;
-  const date = new Date(searchParams?.date ?? "1970-11-11T23:00:00.000Z");
+  const sportovisko = await api.sportoviska.getAll({ id: id, q: "" });
+  const date = new Date(searchParams?.date ?? new Date().toISOString());
+  console.log("Date", date);
   const timeSlots = await api.reservations.getAll({
     sportoviskoId: id,
-    date: date ?? undefined,
+    date,
   });
+
   return (
-    <div className="mt-10 h-full">
+    <div className="mt-10 flex h-full flex-col items-center gap-5">
       {sportovisko && (
-        <>
+        <div className="w-4/6">
           <p className="text-center text-4xl">{sportovisko[0]?.name}</p>
           <p className="text-center">{sportovisko[0]?.info}</p>
-        </>
+        </div>
       )}
-      <div className="flex flex-col items-center justify-center gap-6 sm:mt-0 sm:flex-row">
+      <div className="flex flex-col items-center justify-center gap-6 rounded-xl bg-dark-blue/10 p-4 sm:mt-0 sm:flex-row">
         <CalendarComponent id={id} />
         <TimeSlots timeSlots={timeSlots} day={date} />
       </div>
