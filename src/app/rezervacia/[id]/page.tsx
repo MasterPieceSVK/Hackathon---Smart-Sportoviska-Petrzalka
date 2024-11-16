@@ -2,17 +2,19 @@ import CalendarComponent from "./CalendarComponents";
 import { api } from "@/trpc/server";
 import TimeSlots from "./TimeSlots";
 import { auth, signIn } from "@/server/auth";
+import { ReadonlyURLSearchParams } from "next/navigation";
 
+// @ts-ignore
 export default async function Page({
   params,
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams?: Promise<{ date: string | undefined }> | undefined;
+  searchParams?: ReadonlyURLSearchParams;
 }) {
   const session = await auth();
   const { id } = await params;
-  const searchParamsB = await searchParams;
+  const searchParamsB = searchParams;
   if (!session || !searchParamsB) {
     await signIn("", { redirectTo: `/rezervacia/${id}` });
   }
