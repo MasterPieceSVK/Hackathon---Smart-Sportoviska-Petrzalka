@@ -9,16 +9,15 @@ export default async function Page({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams?: ReadonlyURLSearchParams;
+  searchParams?: Promise<any> | undefined;
 }) {
   const session = await auth();
   const { id } = await params;
-  const searchParamsB = searchParams?.get("date");
-  if (!session || !searchParamsB) {
+  if (!session) {
     await signIn("", { redirectTo: `/rezervacia/${id}` });
   }
   const sportovisko = await api.sportoviska.getAll({ id: id, q: "" });
-  const date = new Date(searchParamsB?.date ?? new Date());
+  const date = new Date(searchParams?.date ?? new Date());
   const timeSlots = await api.reservations.getAll({
     sportoviskoId: id,
     date,
