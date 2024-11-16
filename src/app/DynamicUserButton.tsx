@@ -18,7 +18,7 @@ export default function DynamicUserButton() {
           <div className="flex items-center gap-4">
             <Button
               className="hidden border-white bg-pink text-primary text-white hover:text-secondary sm:flex"
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: "/", redirect: true })}
             >
               Odhlasit sa
             </Button>
