@@ -7,11 +7,11 @@ export default async function Page({
   params,
   searchParams,
 }: {
-  params: Promise<{ id: string }>;
-  searchParams?: { date: string | undefined };
+  params: { id: string };
+  searchParams?: { date: string | undefined } | undefined;
 }) {
   const session = await auth();
-  const { id } = await params;
+  const { id } = params;
   if (!session) {
     await signIn("", { redirectTo: `/rezervacia/${id}` });
   }
