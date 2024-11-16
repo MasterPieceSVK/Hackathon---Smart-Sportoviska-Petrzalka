@@ -2,22 +2,23 @@ import CalendarComponent from "./CalendarComponents";
 import { api } from "@/trpc/server";
 import TimeSlots from "./TimeSlots";
 import { auth, signIn } from "@/server/auth";
-import type { ReadonlyURLSearchParams } from "next/navigation";
 
 export default async function Page({
   params,
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams?: Promise<any> | undefined;
+  searchParams?: { date: string | undefined };
 }) {
   const session = await auth();
   const { id } = await params;
+  // eslint-disable-next-line @typescript-eslint/await-thenable
+  const { date: searchParamsDate } = (await searchParams) ?? { q: "" };
   if (!session) {
     await signIn("", { redirectTo: `/rezervacia/${id}` });
   }
   const sportovisko = await api.sportoviska.getAll({ id: id, q: "" });
-  const date = new Date(searchParams?.date ?? new Date());
+  const date = new Date(searchParamsDate ?? new Date());
   const timeSlots = await api.reservations.getAll({
     sportoviskoId: id,
     date,
