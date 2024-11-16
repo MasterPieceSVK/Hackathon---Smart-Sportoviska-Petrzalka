@@ -38,12 +38,12 @@ export default function TimeSlots({
         // If the last time is deselected, update endTime to the previous time
         const newSelectedTimes = selectedTimes.slice(0, -1);
         setSelectedTimes(newSelectedTimes);
-        setEndTime(newSelectedTimes[newSelectedTimes.length - 1] || null);
+        setEndTime(newSelectedTimes[newSelectedTimes.length - 1] ?? null);
       } else {
         // Deselect all times after the deselected one
         const newSelectedTimes = selectedTimes.slice(0, index);
         setSelectedTimes(newSelectedTimes);
-        setEndTime(newSelectedTimes[newSelectedTimes.length - 1] || null);
+        setEndTime(newSelectedTimes[newSelectedTimes.length - 1] ?? null);
       }
     } else {
       // Handle selecting a time slot
@@ -54,6 +54,7 @@ export default function TimeSlots({
         setSelectedTimes([time]);
       } else if (time > endTime!) {
         // Extend the selection up to this time
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
         const newSelectedTimes = generateTimeRange(startTime!, time);
         setSelectedTimes(newSelectedTimes);
         setEndTime(time);
