@@ -14,7 +14,7 @@ export default function DynamicUserButton() {
       </div>
 
       <div>
-        {session?.data?.user.id ? (
+        {session?.data?.user?.id ? (
           <div className="flex items-center gap-4">
             <Button
               className="hidden border-white bg-pink text-primary text-white hover:text-secondary sm:flex"
