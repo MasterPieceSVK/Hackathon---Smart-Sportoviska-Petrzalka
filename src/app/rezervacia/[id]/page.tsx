@@ -3,15 +3,16 @@ import { api } from "@/trpc/server";
 import TimeSlots from "./TimeSlots";
 import { auth, signIn } from "@/server/auth";
 
+// @ts-expect-error
 export default async function Page({
   params,
   searchParams,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
   searchParams?: { date: string | undefined } | undefined;
 }) {
   const session = await auth();
-  const { id } = params;
+  const { id } = await params;
   if (!session) {
     await signIn("", { redirectTo: `/rezervacia/${id}` });
   }
