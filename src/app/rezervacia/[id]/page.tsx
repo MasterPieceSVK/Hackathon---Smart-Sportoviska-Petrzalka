@@ -3,21 +3,21 @@ import { api } from "@/trpc/server";
 import TimeSlots from "./TimeSlots";
 import { auth, signIn } from "@/server/auth";
 
-// @ts-expect-error
 export default async function Page({
   params,
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams?: { date: string | undefined } | undefined;
+  searchParams?: Promise<{ date: string | undefined }> | undefined;
 }) {
   const session = await auth();
   const { id } = await params;
-  if (!session) {
+  const searchParamsB = await searchParams;
+  if (!session || !searchParamsB) {
     await signIn("", { redirectTo: `/rezervacia/${id}` });
   }
   const sportovisko = await api.sportoviska.getAll({ id: id, q: "" });
-  const date = new Date(searchParams?.date ?? new Date().toISOString());
+  const date = new Date(searchParamsB?.date ?? new Date());
   const timeSlots = await api.reservations.getAll({
     sportoviskoId: id,
     date,
