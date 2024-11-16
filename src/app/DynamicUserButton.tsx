@@ -28,7 +28,7 @@ export default function DynamicUserButton() {
                 alt={session.data.user.name ?? ""}
               />
               <AvatarFallback>
-                {session.data.user?.name?.slice(1, 2) ?? ""}
+                {session.data.user?.name?.slice(0, 2) ?? ""}
               </AvatarFallback>
             </Avatar>
           </div>
