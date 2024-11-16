@@ -10,16 +10,16 @@ export default function NavLinks() {
         <Link href={"/kontakt"}>Kontakt</Link>
       </Button>
       <Button variant={"link"} className="text-lg text-white" asChild>
-        <Link href={"/sportoviska"}>Sportoviska</Link>
+        <Link href={"/sportoviska"}>Športoviská</Link>
       </Button>
       <Button variant={"link"} className="text-lg text-white" asChild>
-        <Link href={"/onas"}>O nas</Link>
+        <Link href={"/onas"}>O nás</Link>
       </Button>
       <Button
         className="border-2 border-primary bg-pink text-lg text-primary hover:text-secondary sm:hidden"
         onClick={() => signOut()}
       >
-        Odhlasit sa
+        Odhlásiť sa
       </Button>
     </>
   );
