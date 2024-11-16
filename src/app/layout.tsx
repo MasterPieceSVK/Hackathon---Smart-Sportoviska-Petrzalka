@@ -12,6 +12,7 @@ import { BurgerIcon } from "@/components/ui/icons";
 import NavLinks from "./NavLinks";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import Link from "next/link";
+import Feedback from "./feedback";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -28,18 +29,18 @@ export default async function RootLayout({
         <Providers>
           <TRPCReactProvider>
             <div className="h-lvh">
-              <nav className="bg-dark-blue flex h-[15%] items-center justify-between px-3 py-6">
+              <nav className="flex h-[15%] items-center justify-between bg-dark-blue px-3 py-6">
                 <Link href={"/"}>
-                  <h1 className="text-lg text-white">Petrzalka</h1>
+                  <h1 className="text-lg text-white">Petržalka</h1>
                 </Link>
                 <div className="sm:hidden">
                   <Drawer>
                     <DrawerTrigger>
                       <BurgerIcon size={20} className="text-white" />
                     </DrawerTrigger>
-                    <DrawerContent className="bg-dark-blue gap-2">
+                    <DrawerContent className="gap-2 bg-dark-blue">
                       <DialogTitle></DialogTitle>
-                      <div className="bg-dark-blue flex flex-col">
+                      <div className="flex flex-col bg-dark-blue">
                         <NavLinks />
                       </div>
                     </DrawerContent>
@@ -49,6 +50,7 @@ export default async function RootLayout({
               </nav>
               <main className="h-[85%]">{children}</main>
             </div>
+            <Feedback />
           </TRPCReactProvider>
         </Providers>
       </body>
