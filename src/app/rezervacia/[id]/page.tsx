@@ -1,6 +1,7 @@
 import CalendarComponent from "./CalendarComponents";
 import { api } from "@/trpc/server";
 import TimeSlots from "./TimeSlots";
+import { auth, signIn } from "@/server/auth";
 
 export default async function Page({
   params,
@@ -9,6 +10,10 @@ export default async function Page({
   params: { id: string };
   searchParams?: { date: string | undefined };
 }) {
+  const session = await auth();
+  if (!session) {
+    await signIn("", { redirectTo: `/rezervacia/${params.id}` });
+  }
   const { id } = params;
   const sportovisko = await api.sportoviska.getAll({ id: id, q: "" });
   const date = new Date(searchParams?.date ?? new Date().toISOString());

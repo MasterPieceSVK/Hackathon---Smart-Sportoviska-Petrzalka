@@ -14,7 +14,7 @@ export default function Home() {
       <Button
         onClick={async () => {
           if (!session.data) {
-            await signIn();
+            await signIn("", { redirectTo: "/sportoviska" });
           } else {
             router.push("/sportoviska");
           }
