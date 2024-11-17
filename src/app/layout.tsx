@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Toaster } from "@/components/ui/toaster";
 import { GeistSans } from "geist/font/sans";
@@ -53,6 +53,7 @@ export default async function RootLayout({
           </TRPCReactProvider>
         </Providers>
         <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
